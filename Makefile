@@ -31,7 +31,7 @@ help:
 	@echo ""
 	@echo "Targets:"
 	@echo -e "\t- $(BOLD)install$(NORMAL)          : Install $(SOFTWARE)"
-	@echo -e "\t- $(BOLD)remove$(NORMAL)           : Remove $(SOFTWARE)"
+	@echo -e "\t- $(BOLD)uninstall$(NORMAL)        : Uninstall $(SOFTWARE)"
 	@echo -e "\t- $(BOLD)locale$(NORMAL)           : Extract strings for translation template"
 	@echo -e "\t- $(BOLD)package$(NORMAL)          : Generate a package distribution"
 	@echo -e "\t- $(BOLD)publish$(NORMAL)          : Publish current version to git"
@@ -99,7 +99,7 @@ install: action:="Installing"
 install: action_end:="installed"
 install: check_run_deps _install
 
-remove:
+uninstall:
 	@echo "$(BOLD) * Removing $(SOFTWARE)...$(NORMAL)"
 	@rm -fv /usr/share/applications/cover-thumbnailer-gui.desktop
 	@rm -rfv /usr/share/cover-thumbnailer
@@ -110,7 +110,7 @@ remove:
 	@rm -vf /usr/bin/cover-thumbnailer
 	@rm -vf /usr/bin/cover-thumbnailer-gui
 	@rm -vf /usr/share/thumbnailers/cover.thumbnailer
-	@echo "$(GREEN)$(SOFTWARE) removed successfully$(NORMAL)"
+	@echo -e "$(GREEN)$(SOFTWARE) removed successfully$(NORMAL)"
 
 package: INSTALL_PATH:=$(PACKAGE_PATH)
 package: action:="Packaging"
