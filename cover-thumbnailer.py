@@ -121,7 +121,6 @@ class Conf(dict):
         self['pictures_bg'] = os.path.join(BASE_PATH, "pictures_bg.png")
         #Other
         self['other_enabled'] = True
-        self['other_fg'] = os.path.join(BASE_PATH, 'other_fg.png')
         #Ignored
         self['ignored_dotted'] = False
         self['ignored_paths'] = []
@@ -506,19 +505,11 @@ class Thumb(object):
         bg.paste(fg, (0, 0), fg)
         self.thumb = bg
 
-    def other_thumbnail(self, fg_picture):
-        """ Makes thumbnails for "other" folders
-
-        Argument:
-          * fg_picture -- the foreground picture to add
-        """
-        fg = Image.open(fg_picture).convert("RGBA")
-        size = fg.size[0]
+    def other_thumbnail(self):
+        """Makes thumbnails for "other" folders"""
         if len(self.img) == 1:
-            image = self.thumbnailize(self.img[0], size, crop=True)
-            if image.size[0] == size and image.size[1] == size:
-                image.paste(fg, (0, 0), fg)
-                self.thumb = image
+            # image = self.thumbnailize(self.img[0], size, crop=True)
+            self.thumb = self.img[0]
 
     def save_thumb(self, output_path, output_format='PNG'):
         """ Save the thumbnail in a file.
@@ -712,7 +703,7 @@ if __name__ == "__main__":
         covers = search_cover(INPUT_FOLDER)
         if len(covers) == 1:
             thumbnail = Thumb(covers)
-            thumbnail.other_thumbnail(CONF['other_fg'])
+            thumbnail.other_thumbnail()
             thumbnail.save_thumb(OUTPUT_FILE, "PNG")
 
 
